@@ -12,5 +12,5 @@ There are many, many projects in the field of MPC that we did not include in our
 - Duplo ([github](https://github.com/AarhusCrypto/DUPLO)) This is primarily a protocol implementation. It uses Frigate as a front-end, which we discuss.
 - TinyLego ([github](https://github.com/AarhusCrypto/TinyLEGO)) is primarily a protocol implementation. The front-end is a circuit implementation & parser.
 - JustGarble ([website](https://cseweb.ucsd.edu/groups/justgarble/)). This library only implements garbling and evaluation on Boolean circuits. It doesn't include communication or circuit generation. It's mostly subsumed by TinyGarble.
-- Semi-honest BRM ([github](https://github.com/cryptobiu/Semi-Honest-BMR)). This is primarily a protocol implementation. It consumes circuits.
+- Semi-honest BMR ([github](https://github.com/cryptobiu/Semi-Honest-BMR)). This is primarily a protocol implementation. It consumes circuits.
 - SPDZ has been subsumed by SCALE-MAMBA. We had already reviewed SPDZ when S-M was released, so we include a SPDZ Docker instance and sample programs here for posterity.
