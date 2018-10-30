@@ -10,5 +10,5 @@
     - [[SCALE-MAMBA|SCALE-MAMBA]]
     - [[TinyGarble|TinyGarble]]
     - [[Wysteria|Wysteria]]
-- [[Inclusion Critera|Projects Not Surveyed]]
+- [[Inclusion Critera|Inclusion Criteria]]
 - [[A Layperson's Guide|A Layperson's Guide]]
