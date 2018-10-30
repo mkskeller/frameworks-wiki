@@ -12,6 +12,8 @@ Welcome! This wiki contains notes and commentary on the compilers studied in thi
 - [[PICCO|PICCO]]
 - [[TinyGarble|TinyGarble]]
 
-We also include notes on several frameworks and compilers we did not include: [[Projects Not Surveyed|Projects Not Surveyed]].
+If your project is not included here and you would like it to be, please peruse the [[Inclusion Criteria|Inclusion Criteria]] and take the steps outlined therein.
+
+Questions about this repository should be raised in the [issue tracker](https://github.com/MPC-SoK/frameworks/issues).
 
 Please see also our upcoming survey paper, SoK: General-Purpose Compilers for Secure Multi-Party Computation (link to come).
