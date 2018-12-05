@@ -1,5 +1,4 @@
 
-### What does it do?
 ABY is a library-style framework for secure computation that provides fine-grained control over computation efficiency via multiple protocol support. 
 
 It supports three sharing schemes: Arithmetic sharing, Boolean sharing, and Yao's garbled circuits. Arithmetic-shared circuits are evaluated using a novel GMW-based protocol, fully described in the paper. Boolean-shared circuits are evaluated using the GMW protocol. Yao circuits are evaluated with Yao's garbled circuits protocol. Users can manually switch between circuit types during the secure computation. 
@@ -8,7 +7,7 @@ Function specification is done via gates. There are some useful abstractions (pa
 
 The framework only supports two parties, but you can secret share from multiple parties to two, then rebuild the inputs and implement the function.
 
-### Usability
+## Usability
 Compilation was fairly straightforward, although it failed on OSX.
 
 Their extensive user guide explains most of hte basic functionality of the framework and explains how the type system is structured.
@@ -30,9 +29,9 @@ ABY uses OpenSSL which uses AES-NI by default unless configured with `no-asm` op
 
 ## Related Work
 ABY demonstrates a less seamless approach to hybrid computation, allowing the user fine-grained control via explicit protocol selection. It has since spawned many follow-up works, including several which automate protocol selection between the three options. These include:
-- EzPC:
-- ABY^3:
-- HyCC:
+- [EzPC](https://www.microsoft.com/en-us/research/uploads/prod/2018/09/ezpceprint.pdf): ABY but with automatic protocol selection and language guarantees. (Follow-up application: [SecureNN](https://www.microsoft.com/en-us/research/uploads/prod/2018/09/securenneprint.pdf), see also MiniONN below)
+- [ABY^3](https://eprint.iacr.org/2018/403.pdf): 3-party malicious security, switches between protocols, designed for machine-learning applications. 
+- [HyCC](https://dl.acm.org/citation.cfm?doid=3243734.3243786): more automation!
 
 The system has been used in a variety of practical applications
 - [Ciphers for MPC and FHE](https://eprint.iacr.org/2016/687.pdf): Implements symmetric-key primitives
