@@ -19,69 +19,42 @@ but `innerprod.cpp` calls `set_bitlength` at the end of the computation in an Ar
 
 Arithmetic circuits define ADD and MUL gates that takes wire ids as input, rather than shares. This is not documented in the User Guide and is not supported for Boolean circuits.
 
-We found some correctness issues. Some are user errors that result in incorrect answers, and some seem to be development errors.
+We found some correctness issues. We contacted the ABY team about underlying implementation issues and these have since been fixed, so we don't discuss them here. We also found an easy user error that can cause incorrect results:
 
 - The same share type is used to represent secret input as understood by each circuit. This is a useful abstraction, but there's no enforcement re: which circuit type a share represents at any given time. For example, you can have an Arithmetic circuit output a share generated on a Yao circuit. This doesn't produce any warnings or errors, and will produce incorrect output. 
 
-- Potential bug converting from Boolean to Arithmetic shares. With more than 4 conversions in a single circuit, `share` value is incorrectly calculated. (See `eq_conversion_failure`).
 
-- Potential bug with Yao: fails to output ADDed shares. Note: this may be an integer overflow error caused by some error in earlier initialization.
-```
-share *s_x = yaocircuit->PutINGate(10,32,SERVER); // arguments: (value, num_bits, party)
-share *s_y = yaocircuit->PutINGate(24,32,CLIENT);
-s_x = yaocircuit->PutADDGate(s_x,s_y);
-// FAILS
-s_x = yaocircuit->PutOUTGate(s_x, ALL);
-```
-However, if you switch representations to an Arithmetic circuit before the output gate, it works:
-```
-s_x = arithcircuit->PutY2AGate(s_x, booleancircuit);
-s_x = arithcircuit->PutOUTGate(s_x, ALL);
-```
-(please forgive gratuitous uninitialized circuits).
-
----
 All network communications trace back to the [ENCRYPTO_utils](https://github.com/encryptogroup/ENCRYPTO_utils) socket files. Secure communications shouldn't matter, though, because it's a two-party computation.
 
 ABY uses OpenSSL which uses AES-NI by default unless configured with `no-asm` option. I grepped the repo and didn't find that string, so I strongly suspect this framework does use AES-NI.
 
+## Related Work
+ABY demonstrates a less seamless approach to hybrid computation, allowing the user fine-grained control via explicit protocol selection. It has since spawned many follow-up works, including several which automate protocol selection between the three options. These include:
+- EzPC:
+- ABY^3:
+- HyCC:
+
+The system has been used in a variety of practical applications
+- [Ciphers for MPC and FHE](https://eprint.iacr.org/2016/687.pdf): Implements symmetric-key primitives
+- The SIXPACK system [[ANRW16](https://irtf.org/anrw/2016/anrw16-final5.pdf), [CDCSS17](https://mcanini.github.io/papers/sixpack.conext17.pdf)]: Computing routing information at internet exchange points
+- [Private set intersection for unequal size sets with mobile applications](https://eprint.iacr.org/2017/670.pdf): Compares PSI protocols in different settings
+- [Efficient circuit-based PSI via cuckoo hashing](https://eprint.iacr.org/2018/120.pdf): Implements new circuit-based PSI protocols
+- [Oblivious neural network predictions via MiniONN transformations](https://eprint.iacr.org/2017/452.pdf) [[source](https://github.com/SSGAalto/minionn)]: Transforms neural nets to oblivious neural nets without changing model training.
+- [Privacy-preserving whole-genome variant queries](https://thomaschneider.de/papers/DHSS17.pdf): Outsourcing queries on genomic data using MPC
+
 ## Sample Programs
 Method `GetNumGates` on `Circuit` types is not fully implemented, so we're not yet reporting circuit size in gates.
 
-### Multiply 3 Numbers
-Implemented.
-Since the framework only supports two-party computations, multiplying 3 numbers requires secret-sharing 3 inputs amongst the two parties.
+_mult3_:
+Since the framework only supports two-party computations, multiplying 3 numbers requires secret-sharing 3 inputs between the two parties.
 
 Arithmetic circuits operate in a field of size 2^`l`, where `l` is the bit size of the types computed on. For these examples, we used 16-bit numbers, and the results were given mod 2^16. The largest bit size available is for the `double` type (`l = 64`).
 
-~~Current implementation generates inputs and their shares randomly. It is almost identical to the Dot Product circuit, but with add and multiply gates switched.~~
-
 Using PutSharedInGates automatically adds the shares, but isn't implemented for 32 bit inputs.
 
-Runtime considers the minimum of the two parties.
 
-|   | Compilation (sec)  | Runtime (sec) |
-| ------------- |-------------| -----|
-| Arithmetic  | 3.77 | 0.35 |
-| Boolean | | |
+ABY includes the inner product as an example. Our version has the same function implementation but is modified to read data from a file.
 
-
-
-### Dot product
-This is one of their existing examples.
-
-Timing for the circuit as-is:
-
-|   | Compilation (sec)  | Runtime (sec) |
-| ------------- |-------------| -----|
-| Arithmetic  | 3.74 | 0.36 |
-
-
-
-### Crosstabs
-No working implementation yet. 
-
-Potential errors converting 0/1 gates from Boolean shares to Arithmetic shares.
 
 ## Links
 - [source](https://github.com/encryptogroup/ABY)
