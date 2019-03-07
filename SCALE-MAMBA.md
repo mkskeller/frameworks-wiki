@@ -14,7 +14,9 @@ Installation comments:
 
 We tested this framework in a relatively limited setting -- isolated, single-execution unit tests -- and were relatively slow, complex, and resource-intensive (on our systems, tests required ~8GB RAM to run). However, it supports a great deal of customization in protocol settings and use cases, and has been used successfully as a component of larger secure systems e.g. the Jana project from Galois. For more discussion on this topic, please query the [SCALE-MAMBA discussion list](https://groups.google.com/forum/#!topic/spdz).
 
-The framework is in active development. Our work is compatible with Version 1.0, the first version that was released. No guarantees for now about V1.1 and beyond.
+The framework supports both fixed and floating point numbers, but we found even for small example programs, floating point requires significantly more rounds of communication (complexity is explained in the documentation).
+
+The framework is in active development. Our work is compatible with Version 1.3, but the latest versions may contain security updates along with other improvements.
 
 ## Links
 - [code](https://github.com/KULeuven-COSIC/SCALE-MAMBA)
