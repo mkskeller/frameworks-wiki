@@ -20,6 +20,8 @@ Compiling is a multi-step affair, and I haven't found an end-to-end example with
 
 ## Notes
 
+We did some independent testing of floats (not rigorous and not included in this repository) and had were unable to successfully execute any operations between floating-point numbers. 
+
 Threshold value `t` must be small enough that `2*t+1 <= n` where `n` is the number of parties (this is standard Shamir threshold sharing). This will segfault without comment in `picco-utility`.
 
 We generated keys pairs which are required for secure communication. Our scripts generate 3 pairs by default but this number can be arbitrarily increased.
