@@ -29,7 +29,7 @@ The executable will be in `build/bin`. If you make changes, you can simply run
 $ make my_test_name 
 ```
 ---
-Arbitrary length integers are an option! You can input large values as strings, but there isn't a matching way to output. You can output bit-by-bit using a binary array.
+Arbitrary length integers are an option! You can input large values as strings, but there isn't a matching way to output. You can output bit-by-bit using a binary array.  The library provides handy tools for converting a binary string to a decimal string (see bin_to_dec in [utils.hpp](https://github.com/emp-toolkit/emp-tool/blob/stable/emp-tool/utils/utils.hpp))
 
 ---
 We found two user-caused correctness issue. (1) the `reveal` function requires both parties to run it in order to complete. 
@@ -106,11 +106,85 @@ Our programming paradigms for this vary from the samples given. The examples are
 1. write circuit in sh2pc format
 2. wrap circuit impl with `setup_plain_prot(true, "output.txt")` and `finalize_plain_prot ()` calls
 3. compile with sh2pc
-4. move `output.txt` to `/usr/local/includes/emp-tool/circuit/files/`
+4. move `output.txt` to `/usr/local/include/emp-tool/circuit/files/`
 5. write boilerplate code in ag2pc format 
 6. compile with ag2pc
 7. run as usual
 
+### Circuit format
+The circuit format is described in [circuit_file.h](https://github.com/emp-toolkit/emp-tool/blob/stable/emp-tool/circuits/circuit_file.h).
+
+The format is:
+```
+[NUM_GATES] [NUM_WIRES]
+[NUM_INPUTS1] [NUM_INPUTS2] [NUM_OUTPUTS]
+
+[NUM_GATE_INPUTS] [UNUSED] [GATE_INPUT1] [GATE_INPUT2] [GATE_OUTPUT] [GATE_TYPE]
+```
+
+Gate types are AND, XOR, NOT.  For NOT gates, GATE_INPUT2 is ignored.  For example, the file
+```
+106601 107113
+512 0   160
+
+1 1 177 749 INV
+2 1 30 31 3599 XOR
+1 1 55 4100 INV
+1 1 62 4246 INV
+........
+```
+
+has 106601 gates and 107113 wires.  Player 1 has 512 input bits, player 2 has 0, and the circuit has 160 output bits.  The first line indicates a NOT gate with 1 inputs wires.  The input wire is 177, and the output wire is 749.  The second line indicates an XOR gate with 2 input wires (30 and 31), and output wire 3599.
+
+### More than three parties
+Most files specify a number of players, e.g.
+
+`const static int nP = 3;`
+
+Unfortunately, simply changing this value from 3 to four will result in errors, because the IP addresses of the parties are hard-coded in [cmpc_config.h](https://github.com/emp-toolkit/emp-agmpc/blob/master/emp-agmpc/cmpc_config.h)
+
+```
+const static char *IP[] = {""
+,	"127.0.0.1"
+,	"127.0.0.1"
+,	"127.0.0.1"};
+```
+
+If you want to increase the number of parties, you need to manually increase the length of the array of IP addresses in [cmpc_config.h](https://github.com/emp-toolkit/emp-agmpc/blob/master/emp-agmpc/cmpc_config.h).
+
+###Generating circuits ag2pc and agmpc
+
+ag2pc and agmpc can only execute circuits, so the recommended workflow is to generate a circuit using sh2pc, then execute it with ag2pc or agmpc.  When outputting these circuits, it is important to declare all inputs first.  The ag2pc and agmpc libraries implicitly assume the first wires are the input wires.
+
+Thus
+```
+Integer a[n];
+Integer b[n];
+Integer c[n];
+for( int i=0; i<n; i++ ){
+    a[i] = Integer(BITLEN,0,ALICE);
+    b[i] = Integer(BITLEN,1,BOB);
+    c[i] = a[i]+b[i];
+}
+```
+will run perfectly well in sh2pc, but will result in errors ("no match GT!") in ag2pc and agmpc.  Instead, the circuit needs to be generated as
+```
+Integer a[n];
+Integer b[n];
+Integer c[n];
+for( int i=0; i<n; i++ ){
+    a[i] = Integer(BITLEN,0,ALICE);
+    b[i] = Integer(BITLEN,1,BOB);
+}
+for( int i=0; i<n; i++ ){
+    c[i] = a[i]+b[i];
+}
+```
+So that all the input wires are declared before any other wires are created.
+
+Note also that the circuit format does not attribute wires to different owners, the circuit simply has input wires.  Thus when you generate the circuit using sh2pc, it does not matter if you assign the wires to ALICE or BOB.  When you execute the circuit using agmpc, you simply see a number of sequential wires, and you can assign them bits from any of the parties.
+
+At the end of circuit execution in agmpc, only player one gets the output bits.  The ag2pc and agmpc libraries do not do any implicit input/output formatting, inputs and outputs are bits only, and you must format them yourself.  The function bin_to_dec in [utils.hpp](https://github.com/emp-toolkit/emp-tool/blob/stable/emp-tool/utils/utils.hpp) is useful for converting strings of bits to strings in decimal notation.
 
 ## Links
 [global scale paper](https://eprint.iacr.org/2017/189.pdf) - describes protocol + evaluates library  
