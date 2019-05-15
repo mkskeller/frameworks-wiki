@@ -1,4 +1,4 @@
-This page contains updated versions of the tables in the paper. For full explanations of criteria and "partial credit", see the paper.
+This page contains updated versions of the tables in the paper. For full explanations of criteria and "partial credit", see the paper. 
 
 - Y: yes, supported
 - N: no, not supported
@@ -43,3 +43,60 @@ Sharemind | Y | Y | Y | Y | P | 9/2018*
 PICCO | Y | N | P | N | Y | 10/2017* 
 Frigate | Y | N | Y | N | Y | 5/2016
 CBMC-GC | P | N | Y | N | Y | 5/2017
+
+# Functionality
+We tested functionality through our sample programs. Anything not in the sample programs is based on the author's claims. Will demote things to partial support if people try it and find it lacking (ie floating point operations).
+
+## Data Types
+Most partial support is explained for individual frameworks in Section VI of the paper. Updates will be recorded here.
+- We tried implementing floating points in PICCO and found the operations supported are limited.
+- We couldn't run TinyGarble programs because they require closed-source tools.
+
+| | Boolean |Fixed int | Arbitrary int | Float | Array |Dynamic array | Struct |
+|---|---|---|---|---|---|---|---|
+EMP-toolkit | Y | Y | Y | Y | Y | Y | Y |
+Obliv-C | Y | Y| N | Y | Y | Y | Y |
+ObliVM | N | Y | Y | Y | P | Y | P |
+TinyGarble | - | - | - | - | - | - | - |
+Wysteria | Y | Y | N | N | P | - | Y |
+ABY | P | Y | N | P | Y | N | Y |
+SCALE-MAMBA | N | Y | P | Y | Y | N | P |
+Sharemind | Y | Y | N | Y | Y | Y | Y |
+PICCO | P | Y | Y | P | Y | Y | Y |
+Frigate | N | Y | Y | N | Y | N | Y |
+CBMC-GC | Y | Y | N | P | Y | N | Y |
+
+## Operators
+We've only tested these on integers.
+
+| | Logical | Comparisons | Addition | Multiplication | Division | Bit-shift | Bitwise | 
+|---        |---|---|---|---|---|---|---|
+EMP-toolkit | Y | Y | Y | Y | Y | Y | Y 
+Obliv-C     | Y | Y | Y | Y | Y | Y | Y 
+ObliVM      | Y | Y | Y | Y | Y | Y | Y 
+TinyGarble  | - | - | - | - | - | - | - 
+Wysteria    | N | Y | Y | Y | P | N | N
+ABY         | Y | Y | Y | Y | N | N | N 
+SCALE-MAMBA | N | Y | Y | Y | Y | Y | Y  
+Sharemind   | Y | Y | Y | Y | Y | Y | Y 
+PICCO       | Y | Y | Y | Y | Y | Y | Y 
+Frigate     | N | Y | Y | Y | Y | Y | Y 
+CBMC-GC     | Y | Y | Y | Y | Y | Y | Y 
+
+# Grammar
+Arrays can be accessed either with a public index ("array access") or a private one. Private index can be implemented natively as a linear-time multiplexer (mux), natively with ORAM (ORAM), or using an ORAM library (lib).
+
+| | Conditional | Array access | Private Index | 
+|---|---|---|---
+EMP-toolkit | N | Y | N 
+Obliv-C | Y | Y| Lib
+ObliVM | Y | Y | ORAM 
+TinyGarble | - | - | -
+Wysteria | Y | N | N 
+ABY | Y | P | N
+SCALE-MAMBA | Y | Y | ORAM
+Sharemind | Y | Y | N
+PICCO | Y | Y | Mux
+Frigate | Y | Y | Mux
+CBMC-GC | Y | Y | Mux
+
