@@ -4,6 +4,7 @@
     - [[CBMC-GC|CBMC-GC]]
     - [[EMP-toolkit|EMP toolkit]]
     - [[Frigate|Frigate]]
+    - [[JIFF|JIFF]]
     - [[Obliv-C|Obliv-C]]
     - [[ObliVM | ObliVM ]]
     - [[PICCO|PICCO]]
