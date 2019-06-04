@@ -13,12 +13,12 @@ Welcome! This wiki is a research artifact that accompanies the paper [SoK: Gener
 - [[PICCO|PICCO]]
 - [[TinyGarble|TinyGarble]]
 
-If your project is not included here and you would like it to be, please peruse the [[Inclusion Criteria|Inclusion Criteria]] and take the steps outlined therein.
+If your project is not included here and you would like it to be, please peruse the [[Inclusion Criteria|Inclusion Criteria]]. If your work meets the criteria, please take the action items we list there.
 
-Questions about this repository should be raised in the [issue tracker](https://github.com/MPC-SoK/frameworks/issues).
+Questions about this repository should be publicly raised in the [issue tracker](https://github.com/MPC-SoK/frameworks/issues).
 
 # Criteria and Evaluation
-In he paper, we define a set of criteria to compare the frameworks. This page contains updated (but somewhat less readable) versions of the tables in the paper. For full explanations of criteria and "partial credit", see the paper. 
+In the paper, we define a set of criteria to compare the frameworks. This page contains updated (but somewhat less readable) versions of the tables in the paper. For full explanations of criteria and "partial credit", see the paper. 
 
 - Y: yes, supported
 - N: no, not supported
