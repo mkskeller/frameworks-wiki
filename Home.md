@@ -2,6 +2,7 @@ Welcome! This wiki is a research artifact that accompanies the paper [SoK: Gener
 
 - [[Wysteria|Wysteria]]
 - [[Frigate|Frigate]]
+- [[JIFF|JIFF]]
 - [[CBMC-GC|CBMC-GC]]
 - [[ABY|ABY]]
 - [[EMP-toolkit|EMP toolkit]]
