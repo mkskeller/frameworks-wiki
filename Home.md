@@ -45,6 +45,7 @@ Sharemind   | Hybrid | 3 | Y | Y | N | N | Y
 PICCO       | Hybrid | 3+ | Y | Y | N | N | N
 Frigate     | - | 2+ | N | - | - | - | -
 CBMC-GC     | - | 2+ | N | - | - | - | -
+MP-SPDZ	    | GC, MC, Hybrid | 2+ | P | Y | Y | Y | P
 
 
 ##  Documentation
@@ -66,6 +67,7 @@ Sharemind   | Y | Y | Y | Y | P | 3/2019*
 PICCO       | Y | N | P | N | Y | 10/2017 
 Frigate     | Y | N | Y | N | Y | 5/2016
 CBMC-GC     | P | N | Y | N | Y | 5/2017
+MP-SPDZ	    | N | Y | Y | Y | Y | 6/2019*
 
 ## Functionality
 We tested functionality through our sample programs. Anything not in the sample programs is based on the author's claims. Will demote things to partial support if people try it and find it lacking (ie floating point operations).
@@ -88,6 +90,7 @@ Sharemind   | Y | Y | N | Y | Y | Y | Y |
 PICCO       | P | Y | Y | P | Y | Y | Y |
 Frigate     | N | Y | Y | N | Y | N | Y |
 CBMC-GC     | Y | Y | N | P | Y | N | Y |
+MP-SPDZ	    | Y | Y | Y | Y | Y | N | Y |
 
 ### Operators
 We've only tested these on integers.
@@ -105,6 +108,7 @@ Sharemind   | Y | Y | Y | Y | Y | Y | Y
 PICCO       | Y | Y | Y | Y | Y | Y | Y 
 Frigate     | N | Y | Y | Y | Y | Y | Y 
 CBMC-GC     | Y | Y | Y | Y | Y | Y | Y 
+MP-SPDZ	    | Y | Y | Y | Y | Y | Y | Y
 
 ### Grammar
 Arrays can be accessed either with a public index ("array access") or a private one. Private index can be implemented natively as a linear-time multiplexer (mux), natively with ORAM (ORAM), or using an ORAM library (lib).
@@ -122,6 +126,7 @@ Sharemind   | Y | Y | N
 PICCO       | Y | Y | Mux
 Frigate     | Y | Y | Mux
 CBMC-GC     | Y | Y | Mux
+MP-SPDZ	    | Y | Y | Mux, ORAM
 
 ## Architecture and Implementation
 These things probably won't change.
@@ -142,6 +147,7 @@ Sharemind   | C/C++    | - | Y | N | N
 PICCO       | C/C++    | - | N | Y: C | N
 Frigate     | C++      | - | Y | N | N
 CBMC-GC     | C++      | - | N | Y: C | N
+MP-SPDZ	    | Python, C++ | Y | Y | N | N
 
 ### Representation and I/O
 Data representation is typically either arithmetic (e.g. shares over a field) or Boolean. Garbled circuit implementations can run on-the-fly (OTF): that is, start execution before the circuit is fully generated.
@@ -161,3 +167,4 @@ Sharemind   | Y | N | - | Y | Y | Y | Y
 PICCO       | Y | N | - | N | Y | Y | Y
 Frigate     | N | Y | N | - | Y | Y | P
 CBMC-GC     | N | Y | N | - | Y | Y | P
+MP-SPDZ	    | Y | Y | N | P | Y | P | Y
