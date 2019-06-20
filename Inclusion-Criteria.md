@@ -11,11 +11,13 @@ We will evaluate compiler-only projects on a case-by-case basis. Please create a
 # Adding your project
 If you determine that your project meets the above criteria, you are welcome to nominate it for inclusion by creating a pull request. We request that all PRs include
 - a `Dockerfile` and (optional) `install.sh` to set up all necessary dependencies, download and install the framework, and compile example programs
-- a `README.md` with the following information: Docker setup (how to set up and run the docker instance), Architecture (a brief overview of the structure of the framework), Running examples (*explicit* instructions to generate input, navigate to the appropriate executable files, set up and run an execution), Modifying examples (*explicit* instructions on how to build examples, including changes to `cmake` or `make` files and compilation steps)
+- a `README.md` with the following information: a brief overview of your framework (architecture, protocol type, high-level goals), Docker setup (how to set up and run the docker instance), Architecture (a brief overview of the structure of the framework), Running examples (*explicit* instructions to generate input, navigate to the appropriate executable files, set up and run an execution), Modifying examples (*explicit* instructions on how to build examples, including e.g. changes to `cmake` or `make` files and compilation steps)
 - a `source/` directory containing all necessary files to compile and execute three example problems: 
-    - `mult3`: multiply three integers together from 3 separate input parties, return an integer
+    - `mult3`: multiply three integers together from 3 separate input parties (or secret shared among 2 computational parties), return an integer
     - `innerprod`: compute the inner product of two length-10 vectors of integers, return an integer
     - `xtabs`: input is a pair of lists (length 10 or longer). for party A: IDs (integers) and bins (integers [0,5)). for party B: IDs (integers) and values (integers). Computes the bin-wise sum of values for IDs that are in both lists. Return a list (length 5) of sums.
+
+The comments of your pull request should also categorize your framework according to the criteria in the 'basics' table: Protocol family, computation parties supported, whether you support mixed mode computation, whether the protocol is semi-honest or maliciously secure, whether you can defend against a dishonest majority, whether the protocol is information-theoretically secure. If you are not sure, please read the paper for clarification or ask in the PR. Feel free to also help fill in the other tables, in part or full.
 
 Questions about these items should be raised in the issue tracker.
 
