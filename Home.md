@@ -27,21 +27,24 @@ In the paper, we define a set of criteria to compare the frameworks. This page c
 
 ## Basic Features
 The protocol families include Garbled Circuits (GC), Multi-party Circuit-based protocols (MC), and Hybrid protocols.
-Threat models are semi-honest, where all parties execute the computation correctly but will try to learn additional information, and malicious, where parties may deviate from the protocol. In all cases, security against a malicious adversary is with abort: a malicious party cannot force an incorrect answer, but can prevent an answer altogether.
+Threat models are semi-honest, where all parties execute the computation correctly but will try to learn additional information, and malicious, where parties may deviate from the protocol. In all cases, security against a malicious adversary is with abort: a malicious party cannot force an incorrect answer, but can prevent an answer altogether. Some protocols support a dishonest majority, but this is irrelevant for a 2-party protocol. Information-theoretically secure protocols do not rely on cryptographic security assumptions.
 
-| | Protocol family | Parties | Mixed-mode | Semi-honest | Malicious
-|---|---|---|---|---|---
-EMP-toolkit | GC | 2 |  Y | Y | Y 
-Obliv-C     | GC | 2 | Y | Y | N
-ObliVM      | GC | 2 | Y | Y | N
-TinyGarble  | GC | 2 | N | Y | N
-Wysteria    | MC | 2+| Y | Y | N
-ABY     | GC, MC | 2 | Y | Y | N
-SCALE-MAMBA | Hybrid | 2+ | Y | Y | Y
-Sharemind   | Hybrid | 3 | Y | Y | N
-PICCO       | Hybrid | 3+ | Y | Y | N
-Frigate     | - | 2+ | N | - | -
-CBMC-GC     | - | 2+ | N | - | -
+SH: Semi-honest. Mal: Malicious (with abort). DH Maj: Dishonest majority. IT Sec: Information-theoretically secure.
+
+| | Protocol family | Parties | Mixed-mode | SH | Mal | DH Maj | IT Sec
+|---|---|---|---|---|---|---|---
+EMP-toolkit | GC | 2 | Y | Y | Y | - | N
+EMP-tool agmpc | GC | 2+ | N | Y | Y | Y | N
+Obliv-C     | GC | 2 | Y | Y | N | - | N
+ObliVM      | GC | 2 | Y | Y | N | - | N
+TinyGarble  | GC | 2 | N | Y | N | - | N
+Wysteria    | MC | 2+| Y | Y | N | N | N
+ABY     | GC, MC | 2 | Y | Y | N | - | N
+SCALE-MAMBA | Hybrid | 2+ | Y | Y | Y | Y | N
+Sharemind   | Hybrid | 3 | Y | Y | N | N | Y
+PICCO       | Hybrid | 3+ | Y | Y | N | N | N
+Frigate     | - | 2+ | N | - | - | - | -
+CBMC-GC     | - | 2+ | N | - | - | - | -
 
 
 ##  Documentation
